@@ -274,7 +274,7 @@ namespace COLLADASaxFWL
 					mObjectFlags,
 					mParsedObjectFlags, 
 					mExtraDataCallbackHandlerList );
-				bool success = fileLoader.load();
+				bool success = fileLoader.load(buffer, length);
 				abortLoading = !success;
 			}
             
