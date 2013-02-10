@@ -61,7 +61,7 @@ namespace GeneratedSaxParser
 	//--------------------------------------------------------------------
 	LibxmlSaxParser::~LibxmlSaxParser()
 	{
-		xmlCleanupParser();
+		// @@@SH xmlCleanupParser();
 	}
 
 	bool LibxmlSaxParser::parseFile( const char* fileName )
