@@ -33,7 +33,7 @@ namespace COLLADABU
 
 namespace Common
 {
-	class FWriteBufferFlusher;
+	class IBufferFlusher;
 	class CharacterBuffer;
 }
 
@@ -99,7 +99,7 @@ namespace COLLADASW
 		typedef std::deque<OpenTag> OpenTagStack;
 
     private:
-		Common::FWriteBufferFlusher* mBufferFlusher;
+		Common::IBufferFlusher* mBufferFlusher;
 
 		Common::CharacterBuffer* mCharacterBuffer;
 
@@ -129,6 +129,9 @@ namespace COLLADASW
     public:
         /** Creates a stream writer that writes to file @a fileName*/
         StreamWriter ( const NativeString& fileName, bool doublePrecision = false, COLLADAVersion cOLLADAVersion = COLLADA_1_4_1);
+
+        /** Creates a stream writer that uses a specifc BufferFlusher @a bufferFlusher (and takes ownership of it). */
+        StreamWriter ( Common::IBufferFlusher* bufferFlusher, bool doublePrecision = false, COLLADAVersion cOLLADAVersion = COLLADA_1_4_1);
 
         /** Closes all open tags and closes the stream*/
         ~StreamWriter();
