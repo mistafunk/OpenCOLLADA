@@ -82,6 +82,18 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
+    StreamWriter::StreamWriter ( Common::IBufferFlusher* bufferFlusher, bool doublePrecision /*= false*/, COLLADAVersion cOLLADAVersion /*= COLLADA_1_4_1*/ )
+            : mBufferFlusher( bufferFlusher )
+			, mCharacterBuffer( new Common::CharacterBuffer(CHARACTERBUFFERSIZE, mBufferFlusher) )
+			, mLevel ( 0 )
+            , mIndent ( 2 )
+            , mDoublePrecision (doublePrecision)
+			, mCOLLADAVersion(cOLLADAVersion)
+			, mNextElementIndex(0)
+    {
+    }
+
+    //---------------------------------------------------------------
     StreamWriter::~StreamWriter()
     {
         endDocument();
