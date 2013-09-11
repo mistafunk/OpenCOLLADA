@@ -22,7 +22,9 @@ namespace COLLADASW
     Asset::Asset ( StreamWriter * streamWriter )
             : ElementWriter ( streamWriter ),
             mUpAxisType ( NONE )
-    {}
+    {
+		mUnit.mMeter = -1.0;
+	}
 
 
     //---------------------------------------------------------------
@@ -98,7 +100,8 @@ namespace COLLADASW
         if ( !mUnit.mName.empty() )
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, mUnit.mName );
 
-        mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_METER, mUnit.mMeter );
+		if ( mUnit.mMeter > 0.0 )
+			mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_METER, mUnit.mMeter );
 
         mSW->closeElement();
 
