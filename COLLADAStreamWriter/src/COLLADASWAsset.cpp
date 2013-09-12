@@ -95,15 +95,18 @@ namespace COLLADASW
         if ( !mTitle.empty() )
             mSW->appendTextElement ( CSWC::CSW_ELEMENT_TITLE, mTitle );
 
-        mSW->openElement ( CSWC::CSW_ELEMENT_UNIT );
+        if ( !mUnit.mName.empty() || mUnit.mMeter > 0.0 )
+        {
+            mSW->openElement ( CSWC::CSW_ELEMENT_UNIT );
 
-        if ( !mUnit.mName.empty() )
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, mUnit.mName );
+            if ( !mUnit.mName.empty() )
+                mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, mUnit.mName );
 
-		if ( mUnit.mMeter > 0.0 )
-			mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_METER, mUnit.mMeter );
-
-        mSW->closeElement();
+            if ( mUnit.mMeter > 0.0 )
+                mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_METER, mUnit.mMeter );
+        
+            mSW->closeElement();
+        }
 
         switch ( mUpAxisType )
         {
