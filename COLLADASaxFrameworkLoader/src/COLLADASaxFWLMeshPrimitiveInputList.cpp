@@ -55,7 +55,13 @@ namespace COLLADASaxFWL
                     mInputArray.append ( input );
                 }
 				delete inputShared; // we are responsible for inputShared
-                return mInputArray [ mInputArray.getCount () - 1 ];
+
+				// @@@SH workaround begin
+				if (mInputArray.getCount() > 0)
+					return mInputArray [ mInputArray.getCount () - 1 ];
+				else
+					return 0;
+				// @@@SH workaround end
             }
             else
             {
