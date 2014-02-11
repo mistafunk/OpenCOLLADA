@@ -1095,10 +1095,15 @@ namespace COLLADASaxFWL
 	bool MeshLoader::beginInput( const input____InputLocalOffset__AttributeData& attributeData )
 	{
 		bool setPresent = (attributeData.present_attributes & input____InputLocalOffset__AttributeData::ATTRIBUTE_SET_PRESENT) == input____InputLocalOffset__AttributeData::ATTRIBUTE_SET_PRESENT;
-		mMeshPrimitiveInputs.appendInputElement(new InputShared(attributeData.semantic, 
-			attributeData.source, 
-			attributeData.offset,
-			setPresent ? attributeData.set : 0));
+
+		// @@@SH workaround begin
+		// attempting to catch files with empty <p> tags and avoid crash in appendInputElement below
+		if (mMeshPrimitiveInputs.getInputArray().getCount() == 0)
+            handleFWLError(SaxFWLError::ERROR_DATA_NOT_VALID, "Encountered empty input/source.", IError::SEVERITY_CRITICAL);
+		// @@@SH workaround end
+
+		InputShared* inputShared = new InputShared(attributeData.semantic, attributeData.source, attributeData.offset, setPresent ? attributeData.set : 0);
+		mMeshPrimitiveInputs.appendInputElement(inputShared);
 		return true;
 	}
 
