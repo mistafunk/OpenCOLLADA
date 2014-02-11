@@ -44,7 +44,7 @@ namespace COLLADASaxFWL
 		Severity getSeverity() const;
 
         /** Returns the current error to get the error message. */
-        const GeneratedSaxParser::ParserError& getError () { return mError; }
+        const GeneratedSaxParser::ParserError& getError () const { return mError; }
 
 		/** The full error message describing the error, including all information.*/
 		String getFullErrorMessage() const;

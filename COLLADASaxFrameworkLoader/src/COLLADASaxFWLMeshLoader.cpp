@@ -749,15 +749,16 @@ namespace COLLADASaxFWL
         String sourceId = inputUrl.getFragment ();
         const SourceBase* sourceBase = getSourceById ( sourceId );
         COLLADABU_ASSERT ( sourceBase != 0 );
-        if ( sourceBase == 0 )
+        if ( sourceBase == 0 ) {
             handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positions sourceBase is null.", IError::SEVERITY_CRITICAL );
-
-        // only stride 3 makes sense for normals
-        unsigned long long stride = sourceBase->getStride();
-        if ( stride != 3 )
-            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positios stride is not three.", IError::SEVERITY_CRITICAL );
-
-        mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
+        }
+        else {
+			// only stride 3 makes sense for normals
+			unsigned long long stride = sourceBase->getStride();
+			if ( stride != 3 )
+				handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positions stride is not three.", IError::SEVERITY_CRITICAL );
+			mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
+        }
     }
 
     //------------------------------
@@ -1098,9 +1099,10 @@ namespace COLLADASaxFWL
 
 		// @@@SH workaround begin
 		// attempting to catch files with empty <p> tags and avoid crash in appendInputElement below
-		if (mMeshPrimitiveInputs.getInputArray().getCount() == 0)
-            handleFWLError(SaxFWLError::ERROR_DATA_NOT_VALID, "Encountered empty input/source.", IError::SEVERITY_CRITICAL);
-		// @@@SH workaround end
+		if (mMeshPrimitiveInputs.getInputArray().getCount() == 0) {
+            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Encountered empty input array.", IError::SEVERITY_CRITICAL );
+            return false;
+		}
 
 		InputShared* inputShared = new InputShared(attributeData.semantic, attributeData.source, attributeData.offset, setPresent ? attributeData.set : 0);
 		mMeshPrimitiveInputs.appendInputElement(inputShared);
