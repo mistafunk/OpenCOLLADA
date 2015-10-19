@@ -31,7 +31,7 @@ namespace COLLADABU
         {
             if ( it == mIdSet.end() )
             {
-                mIdSet.insert ( newIdChecked );
+                mIdSet.emplace ( newIdChecked );
                 return returnConverted ? newIdChecked : newId;
             }
             else if ( !returnConverted )
