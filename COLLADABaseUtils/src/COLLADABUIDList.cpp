@@ -49,7 +49,7 @@ namespace COLLADABU
         }
         while ( mIdSet.find ( idCandidate ) != mIdSet.end() );
 
-        mIdSet.insert ( idCandidate );
+        mIdSet.emplace ( idCandidate );
 
         return returnConverted ? idCandidate : newId + "_" + Utils::toString ( numberSuffix );
     }
